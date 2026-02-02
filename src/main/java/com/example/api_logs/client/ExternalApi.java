@@ -1,41 +1,23 @@
 package com.example.api_logs.client;
 
-import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+import com.example.api_logs.dto.AlbumDto;
+import com.example.api_logs.dto.PostDto;
+import com.example.api_logs.dto.UserDto;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@Component
-public class ExternalApi {
-    private final WebClient webClient;
+import java.util.List;
 
+@FeignClient(name = "externalApi",
+        url = "https://jsonplaceholder.typicode.com")
+public interface ExternalApi {
+    @GetMapping("/users")
+    List<UserDto> getUsers();
 
-    public ExternalApi(WebClient webClient) {
-        this.webClient = webClient;
-    }
+    @GetMapping("/posts")
+    List<PostDto> getPosts();
 
-    public String getUsers() {
-        return webClient.get()
-                .uri("/users")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-    }
-
-    public String getPosts() {
-        return webClient.get()
-                .uri("/posts")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-    }
-
-
-    public String getAlbums() {
-        return webClient.get()
-                .uri("/albums")
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-    }
-
-
+    @GetMapping("/albums")
+    List<AlbumDto> getAlbumByUser(@RequestParam Long userId);
 }

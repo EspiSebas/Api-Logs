@@ -17,8 +17,9 @@ public class LogEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String method;
-    private LocalDate date;
+    private String endpoint;
     @Lob
-    private String dataReturned;
-
+    @Column(name = "data_response",columnDefinition = "TEXT")
+    private String response;
+    private LocalDate createdAt;
 }
