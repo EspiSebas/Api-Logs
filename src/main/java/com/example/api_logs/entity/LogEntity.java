@@ -9,8 +9,6 @@ import java.time.LocalDate;
 @Table(name="logs")
 @NoArgsConstructor
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 public class LogEntity {
     @Id
@@ -19,7 +17,8 @@ public class LogEntity {
     private String method;
     private String endpoint;
     @Lob
-    @Column(name = "data_response",columnDefinition = "TEXT")
+    @Column(name = "response",columnDefinition = "TEXT")
     private String response;
+    @Column(name = "created_at")
     private LocalDate createdAt;
 }

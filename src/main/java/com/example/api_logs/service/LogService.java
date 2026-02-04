@@ -30,17 +30,50 @@ public class LogService {
     public List<LogResponseDto> getAllLogs(){
         return logsRepository.findAll()
                 .stream()
-                .map(l->new LogResponseDto(
-                        l.getId(),
-                        l.getMethod(),
-                        l.getEndpoint(),
-                        l.getResponse(),
-                        l.getCreatedAt()
-                ))
+                .map(this::mapToDto)
                 .toList();
+    }
+
+
+    private LogResponseDto mapToDto(LogEntity log) {
+        LogResponseDto dto = new LogResponseDto();
+        dto.setId(log.getId());
+        dto.setMethod(log.getMethod());
+        dto.setEndpoint(log.getEndpoint());
+        dto.setResponse(log.getResponse());
+        dto.setCreatedAt(log.getCreatedAt());
+        return dto;
     }
 
     public void deleteLog(Long id){
         logsRepository.deleteById(id);
     }
+
+
+    public LogResponseDto updateLog(Long id, LogRequestDto request) {
+
+        LogEntity log = logsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Log not found"));
+
+        if (request.getMethod() != null) {
+            log.setMethod(request.getMethod());
+        }
+        if (request.getEndpoint() != null) {
+            log.setEndpoint(request.getEndpoint());
+        }
+        if (request.getResponse() != null) {
+            log.setResponse(request.getResponse());
+        }
+
+        logsRepository.save(log);
+
+        return new LogResponseDto(
+                log.getId(),
+                log.getMethod(),
+                log.getEndpoint(),
+                log.getResponse(),
+                log.getCreatedAt()
+        );
+    }
+
 }

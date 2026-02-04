@@ -14,4 +14,9 @@ public class LogResponseDto {
 
     public LogResponseDto(long id, String method, String endpoint, String response, LocalDate createdAt) {
     }
+
+
+    public LogResponseDto() {
+
+    }
 }
