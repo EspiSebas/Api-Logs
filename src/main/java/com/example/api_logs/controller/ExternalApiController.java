@@ -4,13 +4,11 @@ import com.example.api_logs.dto.AlbumDto;
 import com.example.api_logs.dto.PostDto;
 import com.example.api_logs.dto.UserDto;
 import com.example.api_logs.service.ExternalApiService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/external")
 public class ExternalApiController {

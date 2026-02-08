@@ -20,4 +20,7 @@ public interface ExternalApi {
 
     @GetMapping("/albums")
     List<AlbumDto> getAlbumByUser(@RequestParam Long userId);
+
+    @GetMapping("/post")
+    List<PostDto> getPostByUser(@RequestParam Long userId);
 }

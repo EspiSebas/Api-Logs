@@ -1,6 +1,7 @@
 package com.example.api_logs.controller;
 
 
+import com.example.api_logs.constantApi.Constants;
 import com.example.api_logs.dto.LogRequestDto;
 import com.example.api_logs.dto.LogResponseDto;
 import com.example.api_logs.service.LogService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api")
 public class ApiLogController {
@@ -26,10 +28,10 @@ public class ApiLogController {
     @DeleteMapping("/log/delete/{id}")
     public ResponseEntity<String> deleteLog(@PathVariable Long id){
         logService.deleteLog(id);
-        return ResponseEntity.ok("Logs deleted successfully");
+        return ResponseEntity.ok(Constants.deleteLog);
     }
 
-    @PatchMapping("/log/update/{id}")
+        @PatchMapping("/log/update/{id}")
     public ResponseEntity<LogResponseDto> updateLog(
             @PathVariable Long id,
             @RequestBody LogRequestDto request
